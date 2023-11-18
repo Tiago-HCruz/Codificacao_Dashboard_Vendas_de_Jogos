@@ -1,6 +1,6 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom dplyr select summarise mutate rename filter group_by `%>%`
-#' @importFrom highcharter hchart hcaes hc_title hc_add_theme hc_subtitle hc_yAxis hc_theme_darkunica
+#' @importFrom highcharter hchart hcaes hc_title hc_add_theme hc_subtitle hc_yAxis hc_theme_darkunica hc_tooltip
 #' @export
 #'
 #' @description
@@ -31,5 +31,7 @@ db_st %>%
   hc_title(text = "Series de vendas de jogos por continentes/País") |>
   hc_add_theme(hc_theme_darkunica()) |>
   hc_subtitle(text = paste0("Gênero: ","'",Gen,"'", ", Plataforma: ","'",Plat,"'")) |>
-  hc_yAxis(labels = list(format = "{value} M"))
+  hc_yAxis(labels = list(format = "{value} M")) |>
+  hc_tooltip(crosshairs = TRUE, shared = TRUE, headerFormat = "<b>{point.name}</b>",
+             valueSuffix = " M")
   }

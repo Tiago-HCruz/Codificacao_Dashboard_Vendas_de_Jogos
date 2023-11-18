@@ -17,6 +17,7 @@
 #' @param JP_Sales: Vendas no Japão
 #' @param Other_Sales: Vendas em outras localidades.
 #' @param Global_Sales: Total de vendas entre os Países
+#' @param Rating: Rank do jogo
 #'
 #' @format Um objeto classificado como data frame, contendo 16719 observações e 10 variáveis.
 #'
@@ -42,7 +43,9 @@ Dados <- read_csv(file.path(getwd(),
                     EU_Sales = "d",
                     JP_Sales = "d",
                     Other_Sales = "d",
-                    Global_Sales = "d"))
+                    Global_Sales = "d"
+                    ))
+
 
 #save(Dados, file = file.path(getwd(),
 #                             "Dados",

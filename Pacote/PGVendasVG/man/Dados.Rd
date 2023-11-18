@@ -30,6 +30,8 @@ Dados
 \item{Other_Sales:}{Vendas em outras localidades.}
 
 \item{Global_Sales:}{Total de vendas entre os Países}
+
+\item{Rating:}{Rank do jogo}
 }
 \value{
 Retorna um banco de dados com os nome dos jogos,
