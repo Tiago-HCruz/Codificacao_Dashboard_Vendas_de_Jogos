@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+.irs--shiny .irs-bar, .irs--shiny .irs-single {
+  border: #363a3d;
+  background: #363a3d;
+}
+
+.irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {
+  background-color: #363a3d;
+}
+
+/*#e8eaed*/
+
+.small-box.bg-aqua{
+  background-color: #434c5ee0 !important;
+  /*border-radius: 10px;*/
+  box-shadow: 0 0 0px 1px rgb(0 0 0 / 70%);
+}
+
+
+body{
+  color: #FFF;
+  background: #343436;
+}
+
+body, h2, .main-header .logo {
+  font-family: 'Prompt', sans-serif;
+}
+
+/*.skin-blue .sidebar a {
+    color: #ffffffc2;
+}*/
+
+
