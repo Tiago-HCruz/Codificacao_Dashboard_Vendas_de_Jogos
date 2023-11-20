@@ -43,12 +43,12 @@ Dados <- read_csv(file.path(getwd(),
                     EU_Sales = "d",
                     JP_Sales = "d",
                     Other_Sales = "d",
-                    Global_Sales = "d"
-                    ))
+                    Global_Sales = "d",
+                    Rating = "c"))
 
 
-#save(Dados, file = file.path(getwd(),
-#                             "Dados",
-#                             "VG_vendas.RData"))
+save(Dados, file = file.path(getwd(),
+                             "Dados",
+                             "VG_vendas.RData"))
 
 

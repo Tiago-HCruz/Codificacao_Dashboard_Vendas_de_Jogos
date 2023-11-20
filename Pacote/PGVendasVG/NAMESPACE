@@ -2,6 +2,7 @@
 
 export(Dados)
 export(densidade)
+export(ic_medias)
 export(st_jogos)
 importFrom(dplyr,`%>%`)
 importFrom(dplyr,filter)

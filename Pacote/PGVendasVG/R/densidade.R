@@ -1,4 +1,4 @@
-#' @importFrom dplyr group_by summarise
+#' @importFrom dplyr select group_by summarise
 #' @importFrom highcharter hchart hcaes hc_add_theme hc_theme_darkunica hc_yAxis hc_xAxis  hc_tooltip hc_plotOptions
 #' @export
 #'
@@ -16,8 +16,8 @@
 #' @examples
 #' densidade(Dados, "Genre", "EU_Sales")
 
-densidade = function(data, x_var, y_var) {
-  data |> group_by(.data[[x_var]]) |>
+densidade = function(x_var, y_var) {
+  Dados |> select(-"Rating") |> group_by(.data[[x_var]]) |>
     summarise(`Vendas Totais` = sum(.data[[y_var]])) |>
     na.omit() |>
     hchart("bar", hcaes(x = .data[[x_var]], y = `Vendas Totais`),

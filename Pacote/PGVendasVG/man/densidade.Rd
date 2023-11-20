@@ -4,14 +4,14 @@
 \alias{densidade}
 \title{Gráfico de barras}
 \usage{
-densidade(data, x_var, y_var)
+densidade(x_var, y_var)
 }
 \arguments{
-\item{data}{data frame}
-
 \item{x_var}{variável do data frame que ficará no eixo x}
 
 \item{y_var}{variável do data frame que ficará no eixo y}
+
+\item{data}{data frame}
 }
 \value{
 um gráfico de barras
