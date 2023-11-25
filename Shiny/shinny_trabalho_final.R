@@ -7,10 +7,7 @@ if(!require("PGVendasVG", quietly = TRUE)){
   devtools::install_github("ti-cruz/PGVendasVG", force = TRUE)
 }
 
-#if(!require("PGVendasVG", quietly = TRUE)){
-#  install.packages(file.path(getwd(),"PGVendasVG_0.1.0.tar.gz"),
-#                   repos = NULL, type = "source")
-#}
+
 library(PGVendasVG)
 
 mytheme <- create_theme(
