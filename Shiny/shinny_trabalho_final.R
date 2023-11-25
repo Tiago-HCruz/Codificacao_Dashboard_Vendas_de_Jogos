@@ -3,6 +3,7 @@ library(shinydashboard)
 library(PGVendasVG)
 library(highcharter)
 library(fresh)
+library(purrr)
 
 mytheme <- create_theme(
   adminlte_color(
@@ -18,7 +19,7 @@ mytheme <- create_theme(
   adminlte_global(
     content_bg = "#f1f3f5",
     box_bg = "#bdc1c6",
-    info_box_bg = "#D8DEE9"
+    info_box_bg = "#ffffff"
   )
 
 )
@@ -29,13 +30,15 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(menuItem("Serie", tabName = "Serie",
                          icon = icon("chart-line")),
-                menuItem("Densidade", tabName = "Densidade",
-                         icon = icon("chart-bar")) ,
-                menuItem(text = "Membros do Grupo", icon = icon("users"),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Tiago, <b>RA:</b> 206333")),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Nome, <b>RA:</b> ******")),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Nome, <b>RA:</b> ******")),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Nome, <b>RA:</b> ******")))
+                menuItem("Gráfico de Barras", tabName = "Grafico_Barras",
+                         icon = icon("chart-bar")),
+                menuItem("Intervalo Boostrap", tabName = "Intervalo_Boostrap",
+                         icon = icon("clipboard")),
+                menuItem(text = "Grupo D", icon = icon("users"),
+                         menuSubItem(text = HTML("<b>  Nome:</b> João, <b>RA:</b> 199910")),
+                         menuSubItem(text = HTML("<b>  Nome:</b> Ricardo, <b>RA:</b> 243887")),
+                         menuSubItem(text = HTML("<b>  Nome:</b> Samuel, <b>RA:</b> 193819")),
+                         menuSubItem(text = HTML("<b>  Nome:</b> Tiago, <b>RA:</b> 206333")))
                 )
     ),
 
@@ -68,7 +71,7 @@ ui <- dashboardPage(
                                    c("Todos", vet_obs$plat)))),
 
               highchartOutput("st")),
-      tabItem(tabName = "Densidade",
+      tabItem(tabName = "Grafico_Barras",
               fluidRow(box(status = "primary", solidHeader = TRUE,
                            width = 3, selectInput("Cat",
                                                   "Categoria:",
@@ -90,7 +93,14 @@ ui <- dashboardPage(
                                 , subtitle =  HTML("Número de Gêneros"),
                                 icon = icon("layer-group"), width = 3)
                        ),
-              highchartOutput("den"))
+              highchartOutput("Graf_Barras")),
+      tabItem(tabName = "Intervalo_Boostrap",
+              fluidRow(box(status = "primary", solidHeader = TRUE,
+                           numericInput("n",
+                                        "Quantas amostras devem ser feitas no método bootstrap",
+                                        100, min = 10, max = 50000)),
+                       infoBoxOutput("Int_sup_inf")),
+             dataTableOutput("Intervalo_Boostrap"))
       )
     )
   )
@@ -103,10 +113,42 @@ server <- function(input, output) {
   })
 
 
-  output$den <- renderHighchart({
-    densidade(Dados, input$Cat, input$Pais)
+  output$Graf_Barras <- renderHighchart({
+    Graf_barras(input$Cat, input$Pais)
   })
 
+  Dados <- as.data.frame(Dados) |>
+    dplyr::select("Platform", "Genre", "Rating", "NA_Sales", "EU_Sales",
+                  "JP_Sales", "Other_Sales", "Global_Sales") |>
+    na.omit(Dados)
+
+  output$Intervalo_Boostrap <- renderDataTable({
+
+    ic_list <-map(c( "NA_Sales", "EU_Sales","JP_Sales", "Other_Sales", "Global_Sales")
+                  , function(x) as.data.frame(IBoots_Vendas(input$n, Dados[,x])))
+    ic_df <- list_rbind(ic_list)
+    ic_df<-cbind(ic_df , c( "América do Norte", "Estados Unidos", "Japão",
+                            "Outros", "Global"))
+
+    names(ic_df) <-c("Limite inferior ","Mediana", "Limite superior",  "País")
+    row.names(ic_df) <-c()
+
+    #print(ic_df)
+    return(ic_df)
+
+    # intervalo superior e inferior de 95%
+  }, options = list(searching = FALSE, paging = FALSE, info = FALSE,
+                    columnDefs = list(list(className = 'dt-left', targets = '_all'))
+                    )
+  #, digits = 4
+  )
+
+  output$Int_sup_inf <- renderInfoBox({
+    infoBox(
+      HTML("Intervalo <br> Superior e Inferior"), "95%",
+      icon = icon("down-left-and-up-right-to-center", lib = "font-awesome"), fill = F
+    )
+  })
 }
 
 # Run the application
