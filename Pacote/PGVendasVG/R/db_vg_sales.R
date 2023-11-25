@@ -30,10 +30,10 @@
 #' dplyr::glimpse(Dados)
 #'
 
-Dados <- read_csv(file.path(getwd(),
+Dados <- readr::read_csv(file.path(getwd(),
                             "Dados",
                             "Video_Games.csv"),
-                  col_types = cols_only(
+                  col_types = readr::cols_only(
                     Name = "c",
                     Platform = "c",
                     Year_of_Release = "c",

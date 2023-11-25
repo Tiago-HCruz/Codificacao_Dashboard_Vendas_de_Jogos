@@ -2,7 +2,7 @@
 % Please edit documentation in R/st_jogos.R
 \name{st_jogos}
 \alias{st_jogos}
-\title{Série de Vendas de jogos por continente ou país.}
+\title{Série de Vendas de jogos por localidade.}
 \usage{
 st_jogos(Gen, Plat, Data_inicio, Data_final)
 }

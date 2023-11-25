@@ -7,7 +7,7 @@
 #' Uma função que retorna um gráfico da série sobre as vendas de jogos,
 #' acumalado para cada localidade por Ano, filtrados por gênero e plataforma.
 #'
-#' @title Série de Vendas de jogos por continente ou país.
+#' @title Série de Vendas de jogos por localidade.
 #'
 #' @param Gen: Gênero de preferência, se for todos, o argumento deve ser "Todos".
 #' @param Plat: Plataforma de preferência, se for todos, o argumento deve ser "Todos".
