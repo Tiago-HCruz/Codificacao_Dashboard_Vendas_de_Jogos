@@ -1,9 +1,17 @@
 library(shiny)
 library(shinydashboard)
-library(PGVendasVG)
 library(highcharter)
 library(fresh)
-library(purrr)
+
+if(!require("PGVendasVG", quietly = TRUE)){
+  devtools::install_github("ti-cruz/PGVendasVG", force = TRUE)
+}
+
+#if(!require("PGVendasVG", quietly = TRUE)){
+#  install.packages(file.path(getwd(),"PGVendasVG_0.1.0.tar.gz"),
+#                   repos = NULL, type = "source")
+#}
+library(PGVendasVG)
 
 mytheme <- create_theme(
   adminlte_color(
@@ -117,36 +125,15 @@ server <- function(input, output) {
     Graf_barras(input$Cat, input$Pais)
   })
 
-  Dados <- as.data.frame(Dados) |>
-    dplyr::select("Platform", "Genre", "Rating", "NA_Sales", "EU_Sales",
-                  "JP_Sales", "Other_Sales", "Global_Sales") |>
-    na.omit(Dados)
-
   output$Intervalo_Boostrap <- renderDataTable({
-
-    ic_list <-map(c( "NA_Sales", "EU_Sales","JP_Sales", "Other_Sales", "Global_Sales")
-                  , function(x) as.data.frame(IBoots_Vendas(input$n, Dados[,x])))
-    ic_df <- list_rbind(ic_list)
-    ic_df<-cbind(ic_df , c( "América do Norte", "Estados Unidos", "Japão",
-                            "Outros", "Global"))
-
-    names(ic_df) <-c("Limite inferior ","Mediana", "Limite superior",  "País")
-    row.names(ic_df) <-c()
-
-    #print(ic_df)
-    return(ic_df)
-
-    # intervalo superior e inferior de 95%
-  }, options = list(searching = FALSE, paging = FALSE, info = FALSE,
-                    columnDefs = list(list(className = 'dt-left', targets = '_all'))
-                    )
-  #, digits = 4
-  )
+    IBoots_Vendas(input$n)},
+    options = list(searching = FALSE, paging = FALSE, info = FALSE))
 
   output$Int_sup_inf <- renderInfoBox({
     infoBox(
       HTML("Intervalo <br> Superior e Inferior"), "95%",
-      icon = icon("down-left-and-up-right-to-center", lib = "font-awesome"), fill = F
+      icon = icon("down-left-and-up-right-to-center", lib = "font-awesome"),
+      fill = F
     )
   })
 }
