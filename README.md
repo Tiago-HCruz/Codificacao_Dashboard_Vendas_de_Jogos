@@ -1,1 +1,1 @@
-# ME918_Trabalho_Final
+A codificação para fazer o dashboard <a href=' https://tiagocruz.shinyapps.io/Trabalho_Final-ME918/' target='_blank'><font color='#52deff'>Vendas de Jogos</font></a>, utilizado o software linguagem R com o banco de dados <a href='https://www.kaggle.com/datasets/ghassenkhaled/video-games-data'target='_blank'><font color='#52deff'>Video Games Data</font></a><br> e o pacote <a href='https://github.com/Tiago-HCruz/PGVendasVG' target='_blank'><font color='#52deff'>PGVendasVG</font></a>
