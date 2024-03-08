@@ -7,7 +7,6 @@ if(!require("PGVendasVG", quietly = TRUE)){
   devtools::install_github("ti-cruz/PGVendasVG", force = TRUE)
 }
 
-
 library(PGVendasVG)
 
 mytheme <- create_theme(
@@ -29,28 +28,54 @@ mytheme <- create_theme(
 
 )
 
-ui <- dashboardPage(
+title <- tags$main(tags$img(src = "https://cdn-icons-png.flaticon.com/512/2780/2780137.png",
+                           height = '35', width = '35'),
+                "Vendas de Jogos")
 
-  dashboardHeader(title = "Vendas de Jogos"),
+ui <- dashboardPage(
+  title="Vendas de Jogos | Dashboard",
+
+  dashboardHeader(title = title,
+                  tags$li(class = 'dropdown',
+                          tags$a(href = "https://github.com/Tiago-HCruz/PGVendasVG/tree/main",
+                                 icon('box-open'),
+                                 "Pacote Utilizado",
+                                 target="_black")),
+                  tags$li(class = 'dropdown',
+                          tags$a(icon("github"),
+                                 "Codificação",
+                                 target="_black"))),
   dashboardSidebar(
-    sidebarMenu(menuItem("Serie", tabName = "Serie",
+    sidebarMenu(
+                h6(HTML("<center>Para fazer esse dashboard, <br>
+                        foi utilizado o software <b>linguagem R</b> <br>
+                        com o banco de dados <a href='https://www.kaggle.com/datasets/ghassenkhaled/video-games-data'target='_blank'><font color='#52deff'>Video Games Data</font></a><br>
+                        e o pacote <a href='https://github.com/Tiago-HCruz/PGVendasVG' target='_blank'><font color='#52deff'>PGVendasVG</font></a> <center/>
+                        (feito pelo proprio <b>grupo</b>)")),
+                menuItem("Serie", tabName = "Serie",
                          icon = icon("chart-line")),
                 menuItem("Gráfico de Barras", tabName = "Grafico_Barras",
                          icon = icon("chart-bar")),
                 menuItem("Intervalo Boostrap", tabName = "Intervalo_Boostrap",
                          icon = icon("clipboard")),
                 menuItem(text = "Grupo D", icon = icon("users"),
-                         menuSubItem(text = HTML("<b>  Nome:</b> João, <b>RA:</b> 199910")),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Ricardo, <b>RA:</b> 243887")),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Samuel, <b>RA:</b> 193819")),
-                         menuSubItem(text = HTML("<b>  Nome:</b> Tiago, <b>RA:</b> 206333")))
+                         menuSubItem(text = HTML("<b>João Matovani</b> "),
+                                     icon = icon("user")),
+                         menuSubItem(text = HTML("<b>Ricardo Shiraishi</b>"),
+                                     href = "https://www.linkedin.com/in/ricardo-shiraishi-567883208/",
+                                     icon = icon("linkedin")),
+                         menuSubItem(text = HTML("<b>Samuel Volpe</b> "),
+                                     icon = icon("user")),
+                         menuSubItem(text = HTML("<b>Tiago Cruz</b>"),
+                                     href = "https://www.linkedin.com/in/tiago-cruz-b65721284/",
+                                     icon = icon("linkedin")))
                 )
     ),
 
   dashboardBody(
-
     tags$head(
-       tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+       tags$link(rel = "stylesheet", type = "text/css", href = "custom.css"),
+       tags$link(rel = "icon", type = "image/png", href = "https://cdn-icons-png.flaticon.com/512/2780/2780137.png"),
     ),
 
     use_theme(mytheme),
